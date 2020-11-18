@@ -1,8 +1,19 @@
 from django.db import models
-from django.utils import timezone
+import datetime
+
+
+class Project(models.Model):
+    name = models.CharField(max_length=255)
+    descr = models.TextField()
+    added_date = models.DateField(default=datetime.date.today())
+    end_date = models.DateField(default=(datetime.date.today() + datetime.timedelta(weeks=2)))
+    done = models.BooleanField(default=False)
 
 
 class Task(models.Model):
     name = models.CharField(max_length=255)
-    added_date = models.DateTimeField(default=timezone.now())
+    descr = models.TextField()
+    added_date = models.DateField(default=datetime.date.today())
+    end_date = models.DateField(default=(datetime.date.today() + datetime.timedelta(weeks=2)))
     done = models.BooleanField(default=False)
+    project_id = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True)
