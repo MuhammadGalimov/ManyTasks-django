@@ -4,6 +4,10 @@ from .models import Task, Project
 from .forms import TaskAddForm
 
 
+def main_page(request):
+    return render(request, 'index.html')
+
+
 def add_task(request):
     if request.method == 'POST':
         task_add_form = TaskAddForm(request.POST)
@@ -22,7 +26,11 @@ def add_task(request):
     else:
         task_add_form = TaskAddForm()
 
-    return render(request, 'main.html', {'task_add_form': task_add_form})
+    return render(request, 'add_task.html', {'task_add_form': task_add_form})
+
+
+def add_project(request):
+    pass
 
 
 def show_tasks(request):
